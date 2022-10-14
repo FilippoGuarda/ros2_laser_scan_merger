@@ -15,7 +15,7 @@ def generate_launch_description():
     pointCloutFrameId = LaunchConfiguration('pointCloutFrameId', default="laser")
     
     #parameter for the first laserscan, feel free to duplicate and rename for other laserscans
-    scanTopic1 = LaunchConfiguration('scanTopic1', default="lidar_front_right/scan")
+    scanTopic1 = LaunchConfiguration('scanTopic1', default="/scan_right")
     laser1XOff = LaunchConfiguration('laser1XOff', default=-0.45)
     laser1YOff = LaunchConfiguration('laser1YOff', default=0.24)
     laser1ZOff = LaunchConfiguration('laser1ZOff', default=0.0)
@@ -28,7 +28,7 @@ def generate_launch_description():
     show1 = LaunchConfiguration('show1', default=True)
 
     #parameter for the second laserscan, feel free to duplicate and rename for other laserscans
-    scanTopic2 = LaunchConfiguration('scanTopic2', default="lidar_rear_left/scan")
+    scanTopic2 = LaunchConfiguration('scanTopic2', default="/scan_left")
     laser2XOff = LaunchConfiguration('laser2XOff', default=0.315)
     laser2YOff = LaunchConfiguration('laser2YOff', default=-0.24)
     laser2ZOff = LaunchConfiguration('laser2ZOff', default=0.0)

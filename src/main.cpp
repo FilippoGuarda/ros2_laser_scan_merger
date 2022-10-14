@@ -352,7 +352,7 @@ class scanMerger : public rclcpp::Node
         this->declare_parameter("pointCloudTopic","base/custom_cloud");
         this->declare_parameter("pointCloutFrameId","laser");
 
-        this->declare_parameter("scanTopic1","lidar_front_right/scan");
+        this->declare_parameter("scanTopic1","/scan_right");
         this->declare_parameter("laser1XOff",-0.45);
         this->declare_parameter("laser1YOff",0.24);
         this->declare_parameter("laser1ZOff",0.0);
@@ -364,7 +364,7 @@ class scanMerger : public rclcpp::Node
         this->declare_parameter("laser1B",0);
         this->declare_parameter("show1",true);
 
-        this->declare_parameter("scanTopic2","lidar_rear_left/scan");
+        this->declare_parameter("scanTopic2","/scan_left");
         this->declare_parameter("laser2XOff",0.315);
         this->declare_parameter("laser2YOff",-0.24);
         this->declare_parameter("laser2ZOff",0.0);
@@ -380,7 +380,7 @@ class scanMerger : public rclcpp::Node
     void refresh_params(){
         this->get_parameter_or<std::string>("pointCloudTopic", cloudTopic_, "pointCloud");
         this->get_parameter_or<std::string>("pointCloutFrameId",cloudFrameId_, "laser");
-        this->get_parameter_or<std::string>("scanTopic1",topic1_ ,"lidar_front_right/scan");
+        this->get_parameter_or<std::string>("scanTopic1",topic1_ ,"/scan_right");
         this->get_parameter_or<float>("laser1XOff",laser1XOff_, 0.0);
         this->get_parameter_or<float>("laser1YOff",laser1YOff_, 0.0);
         this->get_parameter_or<float>("laser1ZOff",laser1ZOff_, 0.0);
@@ -391,7 +391,7 @@ class scanMerger : public rclcpp::Node
         this->get_parameter_or<uint8_t>("laser1G",laser1G_, 0);
         this->get_parameter_or<uint8_t>("laser1B",laser1B_, 0);
         this->get_parameter_or<bool>("show1",show1_, true);
-        this->get_parameter_or<std::string>("scanTopic2",topic2_, "lidar_rear_left/scan");
+        this->get_parameter_or<std::string>("scanTopic2",topic2_, "/scan_left");
         this->get_parameter_or<float>("laser2XOff",laser2XOff_, 0.0);
         this->get_parameter_or<float>("laser2YOff",laser2YOff_, 0.0);
         this->get_parameter_or<float>("laser2ZOff",laser2ZOff_, 0.0);
