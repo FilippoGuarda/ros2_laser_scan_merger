@@ -8,6 +8,7 @@ from launch import LaunchDescription
 import launch_ros.actions
 from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument
+from launch_ros.actions import Node
 
 def generate_launch_description():
     #general parameter for the cloud
@@ -46,7 +47,7 @@ def generate_launch_description():
     laser3YOff = LaunchConfiguration('laser3YOff', default=0.0)
     laser3ZOff = LaunchConfiguration('laser3ZOff', default=0.0)
     laser3Alpha = LaunchConfiguration('laser3Alpha', default=90.0)
-    laser3AngleMin = LaunchConfiguration('laser3AngleMin', default=0.0)
+    laser3AngleMin = LaunchConfiguration('laser3AngleMin', default=1.0)
     laser3AngleMax = LaunchConfiguration('laser3AngleMax', default=180.0)
     laser3R = LaunchConfiguration('laser3R', default=0)
     laser3G = LaunchConfiguration('laser3G', default=255)
@@ -233,7 +234,36 @@ def generate_launch_description():
             description='desc',
         ),
         
-        
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='static_transform_publisher',
+            arguments=[
+                '--x', '0', '--y', '0', '--z', '-0.25',
+                '--qx', '0', '--qy', '0', '--qz', '0', '--qw', '1',
+                '--frame-id', 'map', '--child-frame-id', 'cloud'
+            ]
+        ),
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='static_transform_publisher',
+            arguments=[
+                '--x', '0', '--y', '0', '--z', '0',
+                '--qx', '0', '--qy', '0', '--qz', '0', '--qw', '1',
+                '--frame-id', 'base_link', '--child-frame-id', 'map'
+            ]
+        ),
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='static_transform_publisher',
+            arguments=[
+                '--x', '0', '--y', '0', '--z', '-0.25',
+                '--qx', '0', '--qy', '0', '--qz', '0', '--qw', '1',
+                '--frame-id', 'base_link', '--child-frame-id', 'cloud'
+            ]
+        ),
         launch_ros.actions.Node(
             package='ros2_laser_scan_merger',
             executable='ros2_laser_scan_merger',
