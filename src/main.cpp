@@ -53,6 +53,7 @@ class scanMerger : public rclcpp::Node
     }
     
     void update_point_cloud_2(){
+        // RCLCPP_INFO(this->get_logger(), "Hello 2");
         refresh_params();
         //pcl::PointCloud<pcl::PointXYZRGB> cloud_;
         pcl::PointCloud<pcl::PointXYZ> cloud_;
@@ -120,6 +121,7 @@ class scanMerger : public rclcpp::Node
 
     }
     void update_point_cloud_rgb(){
+        // RCLCPP_INFO(this->get_logger(), "Hello RGB");
         refresh_params();
         pcl::PointCloud<pcl::PointXYZRGB> cloud_;
         //pcl::PointCloud<pcl::PointXYZ> cloud_;
@@ -214,6 +216,7 @@ class scanMerger : public rclcpp::Node
     }
 
     void update_point_cloud(){
+        // RCLCPP_INFO(this->get_logger(), "Hello basic");
         refresh_params();
         //pcl::PointCloud<pcl::PointXYZRGB> cloud_;
         pcl::PointCloud<pcl::PointXYZ> cloud_;
@@ -297,9 +300,9 @@ class scanMerger : public rclcpp::Node
         }
         // std::cout << "Smalles angle ";
         // std::cout << min_theta
-        //RCLCPP_INFO(this->get_logger(), "Angle range : '%f' - '%f'", min_theta, max_theta);
+        // RCLCPP_INFO(this->get_logger(), "Angle range : '%f' - '%f'", min_theta, max_theta);
         
-        //std::sort(scan_data.begin(), scan_data.end());
+        // std::sort(scan_data.begin(), scan_data.end());
 
         // for (unsigned long int i = 0; i < scan_data.size(); i++){
         //     RCLCPP_INFO(this->get_logger(), "Angle range : '%f', '%f'", scan_data[i][0], scan_data[i][1]);
@@ -350,15 +353,15 @@ class scanMerger : public rclcpp::Node
     void initialize_params(){
         
         this->declare_parameter("pointCloudTopic","base/custom_cloud");
-        this->declare_parameter("pointCloutFrameId","laser");
+        this->declare_parameter("pointCloutFrameId","base_link");
 
         this->declare_parameter("scanTopic1","/scan_right");
         this->declare_parameter("laser1XOff",-0.45);
         this->declare_parameter("laser1YOff",0.24);
         this->declare_parameter("laser1ZOff",0.0);
         this->declare_parameter("laser1Alpha",45.0);
-        this->declare_parameter("laser1AngleMin",-181.0);
-        this->declare_parameter("laser1AngleMax",181.0);
+        this->declare_parameter("laser1AngleMin",-180.0);
+        this->declare_parameter("laser1AngleMax",90.0);
         this->declare_parameter("laser1R",255);
         this->declare_parameter("laser1G",0);
         this->declare_parameter("laser1B",0);
@@ -369,8 +372,8 @@ class scanMerger : public rclcpp::Node
         this->declare_parameter("laser2YOff",-0.24);
         this->declare_parameter("laser2ZOff",0.0);
         this->declare_parameter("laser2Alpha",225.0);
-        this->declare_parameter("laser2AngleMin",-181.0);
-        this->declare_parameter("laser2AngleMax",181.0);
+        this->declare_parameter("laser2AngleMin",-90.0);
+        this->declare_parameter("laser2AngleMax",180.0);
         this->declare_parameter("laser2R",0);
         this->declare_parameter("laser2G",0);
         this->declare_parameter("laser2B",255);
@@ -379,14 +382,14 @@ class scanMerger : public rclcpp::Node
     }
     void refresh_params(){
         this->get_parameter_or<std::string>("pointCloudTopic", cloudTopic_, "pointCloud");
-        this->get_parameter_or<std::string>("pointCloutFrameId",cloudFrameId_, "laser");
+        this->get_parameter_or<std::string>("pointCloutFrameId",cloudFrameId_, "bsae_link");
         this->get_parameter_or<std::string>("scanTopic1",topic1_ ,"/scan_right");
         this->get_parameter_or<float>("laser1XOff",laser1XOff_, 0.0);
         this->get_parameter_or<float>("laser1YOff",laser1YOff_, 0.0);
         this->get_parameter_or<float>("laser1ZOff",laser1ZOff_, 0.0);
         this->get_parameter_or<float>("laser1Alpha",laser1Alpha_, 0.0);
-        this->get_parameter_or<float>("laser1AngleMin",laser1AngleMin_, -181.0);
-        this->get_parameter_or<float>("laser1AngleMax",laser1AngleMax_, 181.0);
+        this->get_parameter_or<float>("laser1AngleMin",laser1AngleMin_, -180.0);
+        this->get_parameter_or<float>("laser1AngleMax",laser1AngleMax_, 90.0);
         this->get_parameter_or<uint8_t>("laser1R",laser1R_, 0);
         this->get_parameter_or<uint8_t>("laser1G",laser1G_, 0);
         this->get_parameter_or<uint8_t>("laser1B",laser1B_, 0);
@@ -396,8 +399,8 @@ class scanMerger : public rclcpp::Node
         this->get_parameter_or<float>("laser2YOff",laser2YOff_, 0.0);
         this->get_parameter_or<float>("laser2ZOff",laser2ZOff_, 0.0);
         this->get_parameter_or<float>("laser2Alpha",laser2Alpha_, 0.0);
-        this->get_parameter_or<float>("laser2AngleMin",laser2AngleMin_,-181.0);
-        this->get_parameter_or<float>("laser2AngleMax",laser2AngleMax_, 181.0);
+        this->get_parameter_or<float>("laser2AngleMin",laser2AngleMin_,-90.0);
+        this->get_parameter_or<float>("laser2AngleMax",laser2AngleMax_, 180.0);
         this->get_parameter_or<uint8_t>("laser2R",laser2R_, 0);
         this->get_parameter_or<uint8_t>("laser2G",laser2G_, 0);
         this->get_parameter_or<uint8_t>("laser2B",laser2B_, 0);
