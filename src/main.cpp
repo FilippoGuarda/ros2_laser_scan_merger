@@ -202,13 +202,23 @@ class scanMerger : public rclcpp::Node
             }
         }
         
-
+        rclcpp::Rate rate(1.0);
         auto pc2_msg_ = std::make_shared<sensor_msgs::msg::PointCloud2>();
         pcl::toROSMsg(cloud_, *pc2_msg_);
         pc2_msg_->header.frame_id = cloudFrameId_;
-        pc2_msg_->header.stamp = now();
+        // pc2_msg_->header.stamp = now();
+        pc2_msg_->header.stamp = this->get_clock()->now();
         pc2_msg_->is_dense = false;
         point_cloud_pub_->publish(*pc2_msg_);
+        rate.sleep();
+
+        // rclcpp::Rate rate(1.0);
+        // while (rclcpp::ok()) {
+        //     dummy_cloud.header.stamp = node->get_clock()->now();
+        //     pub->publish(dummy_cloud);
+        //     executor.spin_some();
+        //     rate.sleep();
+        // }
 
         
     }

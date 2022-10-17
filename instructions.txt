@@ -1,0 +1,5 @@
+use this command in case the frame transforms are not set because the map is missing
+ros2 run tf2_ros static_transform_publisher "0" "0" "0" "0" "0" "0" "map" "frame"
+
+use rqt to set lidar parameters
+remember to change the frame into the right one where the messages are being sent
