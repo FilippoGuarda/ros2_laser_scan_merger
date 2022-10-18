@@ -45,7 +45,7 @@ class scanMerger : public rclcpp::Node
         laser1_ = _msg;
         update_point_cloud_rgb();
         // RCLCPP_INFO(this->get_logger(), "I heard: '%f' '%f'", _msg->ranges[0],
-        //         _msg->ranges[100]);
+        //          _msg->ranges[100]);
     }
     void scan_callback2(const sensor_msgs::msg::LaserScan::SharedPtr _msg) {
         laser2_ = _msg;
@@ -266,13 +266,23 @@ class scanMerger : public rclcpp::Node
             }
         }
         
-
+        rclcpp::Rate rate(1.0);
         auto pc2_msg_ = std::make_shared<sensor_msgs::msg::PointCloud2>();
         pcl::toROSMsg(cloud_, *pc2_msg_);
         pc2_msg_->header.frame_id = cloudFrameId_;
-        pc2_msg_->header.stamp = now();
+        // pc2_msg_->header.stamp = now();
+        pc2_msg_->header.stamp = this->get_clock()->now();
         pc2_msg_->is_dense = false;
         point_cloud_pub_->publish(*pc2_msg_);
+        rate.sleep();
+
+        // rclcpp::Rate rate(1.0);
+        // while (rclcpp::ok()) {
+        //     dummy_cloud.header.stamp = node->get_clock()->now();
+        //     pub->publish(dummy_cloud);
+        //     executor.spin_some();
+        //     rate.sleep();
+        // }
 
         
     }
@@ -404,9 +414,9 @@ class scanMerger : public rclcpp::Node
         
         // std::sort(scan_data.begin(), scan_data.end());
 
-        // for (unsigned long int i = 0; i < scan_data.size(); i++){
-        //     RCLCPP_INFO(this->get_logger(), "Angle range : '%f', '%f'", scan_data[i][0], scan_data[i][1]);
-        // }
+        for (unsigned long int i = 0; i < scan_data.size(); i++){
+            RCLCPP_INFO(this->get_logger(), "Angle range : '%f', '%f'", scan_data[i][0], scan_data[i][1]);
+        }
 
         auto pc2_msg_ = std::make_shared<sensor_msgs::msg::PointCloud2>();
         pcl::toROSMsg(cloud_, *pc2_msg_);
@@ -442,7 +452,7 @@ class scanMerger : public rclcpp::Node
                 temp_res += M_PI;
             }
         }
-        //RCLCPP_INFO(this->get_logger(), "x: '%f', y: '%f', a: '%f'", x, y, temp_res);
+        // RCLCPP_INFO(this->get_logger(), "x: '%f', y: '%f', a: '%f'", x, y, temp_res);
         
         return temp_res;
     }
