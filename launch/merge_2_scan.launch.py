@@ -13,7 +13,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
     #general parameter for the cloud
     pointCloudTopic = LaunchConfiguration('pointCloudTopic', default="/cloud")
-    pointCloutFrameId = LaunchConfiguration('pointCloutFrameId', default="cloud")
+    pointCloutFrameId = LaunchConfiguration('pointCloutFrameId', default="lidar_frame")
     launch_ros.actions.SetParameter(name='use_sim_time', value=True),
     # 'use_sim_time' will be set on all nodes following the line above
     
@@ -246,16 +246,17 @@ def generate_launch_description():
         #         '--frame-id', 'base_link', '--child-frame-id', 'map'
         #     ]
         # ),
-        Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='static_transform_publisher',
-            arguments=[
-                '--x', '0', '--y', '0', '--z', '-0.25',
-                '--qx', '0', '--qy', '0', '--qz', '0', '--qw', '1',
-                '--frame-id', 'base_link', '--child-frame-id', 'cloud'
-            ]
-        ),
+        # Node(
+        #     package='tf2_ros',
+        #     executable='static_transform_publisher',
+        #     name='static_transform_publisher',
+        #     arguments=[
+        #         '--x', '0', '--y', '0', '--z', '-0.25',
+        #         '--qx', '0', '--qy', '0', '--qz', '0', '--qw', '1',
+        #         '--frame-id', 'base_link', '--child-frame-id', 'cloud'
+        #     ]
+            
+        # ),
 
         launch_ros.actions.Node(
             package='ros2_laser_scan_merger',
