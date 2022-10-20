@@ -51,7 +51,10 @@ install(DIRECTORY
   rviz
   DESTINATION share/${PROJECT_NAME}
 )
-
+install(DIRECTORY
+  config
+  DESTINATION share/${PROJECT_NAME}
+) 
 
 install(TARGETS
 ros2_laser_scan_merger
