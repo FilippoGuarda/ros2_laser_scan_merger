@@ -2,7 +2,7 @@ ros2_laser_scan_merger:
   ros__parameters:
     pointCloudTopic: "/cloud"
     pointCloutFrameId: "lidar_frame"
-    #use_sim_time: True
+    use_sim_time: True
     scanTopic1: "/scan_right"
     laser1XOff: 0.5
     laser1YOff: -0.5
