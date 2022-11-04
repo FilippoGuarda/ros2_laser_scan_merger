@@ -266,7 +266,7 @@ class scanMerger : public rclcpp::Node
             }
         }
         
-        rclcpp::Rate rate(1.0);
+        rclcpp::Rate rate(10.0);
         auto pc2_msg_ = std::make_shared<sensor_msgs::msg::PointCloud2>();
         pcl::toROSMsg(cloud_, *pc2_msg_);
         pc2_msg_->header.frame_id = cloudFrameId_;
