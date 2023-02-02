@@ -1,0 +1,44 @@
+ros2_laser_scan_merger:
+  ros__parameters:
+    pointCloudTopic: "/cloud"
+    pointCloutFrameId: "lidar_frame"
+    use_sim_time: True
+    scanTopic1: "/scan_right"
+    laser1XOff: 0.5
+    laser1YOff: -0.5
+    laser1ZOff: 0.0
+    laser1Alpha: -180.0
+    laser1AngleMin: 1.0
+    laser1AngleMax: 265.0
+    laser1R: 255
+    laser1G: 0
+    laser1B: 0
+    show1: True
+
+    #parameter for the second laserscan, feel free to duplicate and rename for other laserscans
+    scanTopic2: "/scan_left"
+    laser2XOff: 0.5
+    laser2YOff: 0.5
+    laser2ZOff: 0.0
+    laser2Alpha: -85.0
+    laser2AngleMin: 0.0
+    laser2AngleMax: 264.0
+    laser2R: 0
+    laser2G: 0
+    laser2B: 255
+    show2: True
+
+    #parameter for the third laserscan, feel free to duplicate and rename for other laserscans
+    scanTopic3: "/scan_center"
+    laser3XOff: -0.5
+    laser3YOff: 0.0
+    laser3ZOff: 0.0
+    laser3Alpha: 90.0
+    laser3AngleMin: 1.0
+    laser3AngleMax: 180.0
+    laser3R: 0
+    laser3G: 255
+    laser3B: 0
+    show3: True
+
+
